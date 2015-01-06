@@ -49,7 +49,7 @@ class Item(Area):
     def find(self, item_id, basic=False, **kwargs):
         """
         Get item
-        
+
         :param item_id: Item ID
         :type item_id: int
         :return: Item info
@@ -96,7 +96,7 @@ class Item(Area):
         """
         Updates the item using the supplied attributes. If 'silent' is true, Podio will send
         no notifications to subscribed users and not post updates to the stream.
-        
+
         Important: webhooks will still be called.
         """
         if not isinstance(attributes, dict):
@@ -214,7 +214,7 @@ class Task(Area):
     def delete(self, task_id):
         """
         Deletes the app with the given id.
-        
+
         :param task_id: Task ID
         :type task_id: str or int
         """
@@ -310,7 +310,7 @@ class Space(Area):
     def create(self, attributes):
         """
         Create a new space
-        
+
         :param attributes: Refer to API. Pass in argument as dictionary
         :type attributes: dict
         :return: Details of newly created space
@@ -486,3 +486,17 @@ class Files(Area):
         attributes = {'filename': filename,
                       'source': filedata}
         return self.transport.POST(url='/file/v2/', body=attributes, type='multipart/form-data')
+
+class Contact(Area):
+    def create(self, space_id, attributes):
+        """ Creates a space contact"""
+        return self.transport.POST(url='/contact/space/%s/' % space_id, body=json.dumps(attributes),
+                                   type='application/json')
+
+    def delete(self, profile_id):
+        """ Delete contact(s)"""
+        return self.transport.DELETE(url='/contact/%s' % profile_id)
+
+    def get_contact(self, profile_id):
+        """ Get Contact"""
+        return self.transport.GET(url='/contact/%s/v2' % profile_id)
