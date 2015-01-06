@@ -497,6 +497,15 @@ class Contact(Area):
         """ Delete contact(s)"""
         return self.transport.DELETE(url='/contact/%s' % profile_id)
 
-    def get_contact(self, profile_id):
+    def get(self, profile_id):
         """ Get Contact"""
         return self.transport.GET(url='/contact/%s/v2' % profile_id)
+
+    def get_all(self, basic=False, **kwargs):
+        """ Get Contacts"""
+        if basic:
+            return self.transport.GET(url='/contact/')
+        return self.transport.GET(kwargs, url='/contact/')
+
+
+
