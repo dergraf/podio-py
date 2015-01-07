@@ -507,5 +507,6 @@ class Contact(Area):
             return self.transport.GET(url='/contact/')
         return self.transport.GET(kwargs, url='/contact/')
 
-
-
+    def get_space_contacts(self, space_id, contact_type='space', **kwargs):
+        """ Get Space Contacts"""
+        return self.transport.GET(kwargs, url='/contact/space/%s/' % space_id)
