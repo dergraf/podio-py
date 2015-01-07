@@ -510,3 +510,11 @@ class Contact(Area):
     def get_space_contacts(self, app_id, **kwargs):
         """ Get Space Contacts on App"""
         return self.transport.GET(url='/contact/app/%s/' % app_id, **kwargs)
+
+    def update_space_contact(self, profile_id, attributes, **kwargs):
+        """ Update Space Contact"""
+        if not isinstance(attributes, dict):
+            raise TypeError('Must be of type dict')
+        attributes = json.dumps(attributes)
+        return self.transport.PUT(url='/contact/%s' % profile_id, body=attributes,
+                                  type="application/json", **kwargs)
